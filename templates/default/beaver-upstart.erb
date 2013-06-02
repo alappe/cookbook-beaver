@@ -1,0 +1,21 @@
+# This file is managed by Chef for <%= node['fqdn'] %>
+# Do NOT modify this file directly.
+#
+# beaver - send logs to logstash somewhere
+#
+
+description     "beaver"
+
+start on virtual-filesystems
+stop on runlevel [06]
+
+respawn
+respawn limit 5 30
+limit nofile 65550 65550
+
+setuid root
+setgid root
+
+script
+exec beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %>
+end script

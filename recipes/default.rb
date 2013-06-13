@@ -53,6 +53,7 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   variables(
     :config => node['beaver']
   )
+  notifies :restart, "service[beaver]"
 end
 
 template "/etc/init/beaver.conf" do

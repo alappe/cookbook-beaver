@@ -35,6 +35,13 @@ directory node['beaver']['config_path'] do
   action :create
 end
 
+directory ::File.join(node['beaver']['config_path'], "conf.d") do
+  owner 'root'
+  group 'root'
+  mode 0755
+  action :create
+end
+
 if node['beaver']['ssh']['generate_keypair']
   include_recipe 'beaver::generate_keypair'
 end

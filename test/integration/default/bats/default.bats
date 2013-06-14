@@ -8,6 +8,10 @@
   [ -e /etc/beaver/beaver.conf ]
 }
 
+@test "conf.d directory should exist" {
+  [ -d /etc/beaver/conf.d ]
+}
+
 @test "beaver should be installed" {
   run which beaver
   [ "$status" -eq 0 ]
@@ -15,5 +19,5 @@
 
 @test "beaver should be running" {
   run pgrep -u root beaver
-  [ "$status" -eq 0 ] 
+  [ "$status" -eq 0 ]
 }

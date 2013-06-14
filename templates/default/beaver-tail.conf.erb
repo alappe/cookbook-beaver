@@ -1,0 +1,10 @@
+[<%= @path %>]
+type: <%= @type %>
+format: <%= @format %>
+<%- unless @tags.nil? %>
+tags: <%= @tags %>
+<%- end %>
+<%- unless @add_field.nil? %>
+add_field: <%= @add_field %>
+<%- end %>
+exclude: <%= @exclude %>

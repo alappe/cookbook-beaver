@@ -73,6 +73,56 @@ Attributes
 |<tt>['beaver']['ssh']['remote_port']</tt>|Integer|Remote port of ssh tunnel|<tt>6379</tt>|
 |<tt>['beaver']['ssh']['generate_keypair']</tt>|Boolean|Whether to generate and expose keypair or not|<tt>false</tt>|
 
+Resources/Providers
+-------------------
+
+### Managing log files
+
+This cookbook includes an LWRP for managing log files consumed by Beaver. It
+does so by dropping configuration snippets for each log file into Beaver's conf.d
+directory.
+
+#### Actions
+
+- :create: Creates a config file and restarts Beaver to load it. (This is the default action)
+- :delete: Removes the config file.
+
+#### Parameters
+
+|Parameter|Type|Description|Default|
+|---------|----|-----------|-------|
+|<tt>name</tt>|String|Should be a name for the log file. e.g. 'syslog'|<tt></tt>|
+|<tt>path</tt>|String|The path to the log file being monitored. (Required)|<tt></tt>|
+|<tt>cookbook</tt>|String|Which cookbook contains the config file template, `beaver-tail.conf.erb`.|<tt>beaver</tt>|
+|<tt>format</tt>|String|What Logstash format should be used to send the log data.|<tt>json\_event</tt>|
+|<tt>type</tt>|String|What Logstash type to associate with the log data.|<tt>file</tt>|
+|<tt>tags</tt>|Array|The Logstash tags to associate with the log data as an array of strings.|<tt>[]</tt>|
+|<tt>add\_field</tt>|Array|The Logstash field(s) to associate with the log data. An array of strings in the form ['fieldname1', 'fieldvalue1'].|<tt>[]</tt>|
+|<tt>exclude</tt>|String|Which log files to exclude. Useful if using a file glob in the `path` parameter. The value must be a valid Python regex string. |<tt></tt>|
+
+
+#### Examples
+
+    # Monitor /var/log/syslog
+    beaver_tail "syslog" do
+      path "/var/log/syslog"
+      type "syslog"
+      format "json_event"
+    end
+
+    # Follow all logs in /var/log except those with `messages` or `secure` in the name.
+    beaver_tail "system logs" do
+      path "/var/log/*log"
+      type "syslog"
+      tags: ["sys"]
+      exclude "(messages|secure)"
+    end
+
+    # Stop monitoring syslog
+    beaver_tail "syslog" do
+      action :delete
+    end
+
 Usage
 -----
 #### beaver::default

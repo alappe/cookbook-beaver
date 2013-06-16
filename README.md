@@ -157,6 +157,7 @@ Contributing
 Authors
 -------
 
+* Jeff Ramnani
 * Andreas Lappe
 
 License

@@ -2,57 +2,10 @@
 # Do NOT modify this file directly.
 #
 [beaver]
-fqdn: <%= node['fqdn'] %>
-respawn_delay: <%= @config['respawn_delay'] %>
-max_failure: <%= @config['max_failure'] %>
-sincedb_path: <%= @config['sincedb_path'] %>
-<% if @config['use_tunnel'] %>
-ssh_key_file: <%= @config['config_path'] %>/<%= @config['ssh']['key_file'] %>
-ssh_tunnel: <%= @config['ssh']['tunnel'] %>
-ssh_tunnel_port: <%= @config['ssh']['tunnel_port'] %>
-ssh_remote_host: <%= @config['ssh']['remote_host'] %>
-ssh_remote_port: <%= @config['ssh']['remote_port'] %>
+<% @beaver.each do |key, value| %>
+<%= "#{key}: #{value}" %>
 <% end %>
-<% if @config['transport'] == 'redis' %>
-transport: redis
-redis_url: <%= @config['redis']['url'] %>
-redis_namespace: <%= @config['redis']['namespace'] %>
-<% elsif @config['transport'] == 'mqtt' %>
-transport: mqtt
-mqtt_host: <%= @config['mqtt']['host'] %>
-mqtt_port: <%= @config['mqtt']['port'] %>
-mqtt_clientid: <%= @config['mqtt']['clientid'] %>
-mqtt_keepalive: <%= @config['mqtt']['keepalive'] %>
-mqtt_topic: <%= @config['mqtt']['topic'] %>
-<% elsif @config['transport'] == 'rabbitmq' %>
-transport: rabbitmq
-rabbitmq_host: <%= @config['rabbitmq']['host'] %>
-rabbitmq_port: <%= @config['rabbitmq']['port'] %>
-rabbitmq_vhost: <%= @config['rabbitmq']['vhost'] %>
-rabbitmq_username: <%= @config['rabbitmq']['username'] %>
-rabbitmq_password: <%= @config['rabbitmq']['password'] %>
-rabbitmq_queue: <%= @config['rabbitmq']['queue'] %>
-rabbitmq_exchange_type: <%= @config['rabbitmq']['exchange_type'] %>
-rabbitmq_exchange_durable: <%= @config['rabbitmq']['exchange_durable'] %>
-rabbitmq_key: <%= @config['rabbitmq']['key'] %>
-rabbitmq_exchange: <%= @config['rabbitmq']['exchange'] %>
-<% elsif @config['transport'] == 'sqs_aws' %>
-transport: sqs_aws
-sqs_aws_access_key: <%= @config['sqs_aws']['access_key'] %>
-sqs_aws_secret_key: <%= @config['sqs_aws']['secret_key'] %>
-sqs_aws_region: <%= @config['sqs_aws']['region'] %>
-sqs_aws_queue: <%= @config['sqs_aws']['queue'] %>
-<% elsif @config['transport'] == 'udp' %>
-transport: udp
-udp_host: <%= @config['udp']['host'] %>
-udp_port: <%= @config['udp']['port'] %>
-<% elsif @config['transport'] == 'zeromq' %>
-transport: zeromq
-zeromq_address: <%= @config['zeromq']['address'] %>
-zeromq_hwm: <%= @config['zeromq']['hwm'] %>
-zeromq_bind: <%= @config['zeromq']['bind'] %>
-<% end %>
-<% @config['files'].each do |file| %>
+<% @files.each do |file| %>
 
 [<%= file['path'] %>]
 type: <%= file['type'] %>

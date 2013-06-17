@@ -42,7 +42,7 @@ directory ::File.join(node['beaver']['config_path'], "conf.d") do
   action :create
 end
 
-if node['beaver']['ssh']['generate_keypair']
+if node['beaver']['generate_keypair']
   include_recipe 'beaver::generate_keypair'
 end
 
@@ -58,7 +58,8 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   group 'root'
   mode 00644
   variables(
-    :config => node['beaver']
+    :beaver => node['beaver']['configuration'],
+    :files => node['beaver']['files']
   )
   notifies :restart, "service[beaver]"
 end

@@ -31,5 +31,16 @@ suites:
   run_list: ["recipe[python]","recipe[beaver]"]
   attributes:
     beaver:
-      ssh:
-        generate_keypair: true
+      generate_keypair: true
+
+- name: configuration
+  run_list: ["recipe[python]","recipe[beaver]"]
+  attributes:
+    beaver:
+      configuration:
+        ssh_options: 'StrictHostKeyChecking=no'
+        ssh_tunnel: 'logging@logs.example.net'
+        ssh_remote_host: 'localhost'
+        ssh_remote_port: 6379
+        ssh_tunnel_port: 6379
+        redis_url: redis://localhost:6379/0

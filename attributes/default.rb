@@ -28,59 +28,13 @@ default['beaver'] = {
   'version' => '29',
   'log_path' => '/var/log',
   'log_file' => 'beaver.log',
+  'generate_keypair' => false,
+  'ssh_key_file' => 'logger',
   'config_path' => '/etc/beaver',
   'config_file' => 'beaver.conf',
-  'respawn_delay' => 3,
-  'max_failure' => 7,
-  'sincedb_path' => '/tmp/beaver.db',
-  'transport' => 'redis',
-  'format' => 'json',
-  'redis' => {
-    'url' => 'redis://127.0.0.1:6379/0',
-    'namespace' => 'logstash:beaver'
-  },
-  'mqtt' => {
-    'host' => 'localhost',
-    'port' => 1883,
-    'clientid' => 'mosquitto',
-    'keepalive' => 60,
-    'topic' => '/logstash'
-  },
-  'rabbitmq' => {
-    'host' => 'localhost',
-    'port' => 5672,
-    'vhost' => '/',
-    'username' => 'guest',
-    'password' => 'guest',
-    'queue' => 'logstash-queue',
-    'exchange_type' => 'direct',
-    'exchange_durable' => 0,
-    'key' => 'logstash-key',
-    'exchange' => 'logstash-exchange'
-  },
-  'sqs_aws' => {
-    'access_key' => '',
-    'secret_key' => '',
-    'region' => 'us-east-1',
-    'queue' => ''
-  },
-  'udp' => {
-    'host' => '127.0.0.1',
-    'port' => 9999
-  },
-  'zeromq' => {
-    'address' => 'tcp://localhost:2120',
-    'hwm' => '',
-    'bind' => 'bind'
-  },
-  'use_tunnel' => false,
-  'ssh' => {
-    'tunnel' => nil,
-    'key_file' => 'id_rsa',
-    'tunnel_port' => 6379,
-    'remote_host' => '127.0.0.1',
-    'remote_port' => 6379,
-    'generate_keypair' => false
+  'configuration' => {
+    'respawn_delay' => 3,
+    'max_failure' => 7
   },
   'files' => []
 }

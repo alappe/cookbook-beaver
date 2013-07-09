@@ -5,7 +5,7 @@ This file is used to list changes made in each version of beaver.
 ## 1.1.0:
 
 * Jeff Ramnani added a great LWRP for tail logs
-* The whole configuration changed to a way more flexible approach that will allow future configuration options in the cookbook without any adjustments (that is the reason for the major version bump too…)
+* The whole configuration changed to a way more flexible approach that will allow future configuration options in the cookbook without any adjustments (that is the reason for the major version bump too)
 
 ## 0.1.0:
 

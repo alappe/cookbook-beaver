@@ -1,7 +1,7 @@
 beaver Cookbook
 ===============
 
-Install [beaver](https://github.com/josegonzalez/beaver) — the python daemon that munches on logs and sends their
+Install [beaver](https://github.com/josegonzalez/beaver) - the python daemon that munches on logs and sends their
 contents to logstash.
 
 Requirements

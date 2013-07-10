@@ -73,7 +73,8 @@ template "/etc/init/beaver.conf" do
     :config_path => node['beaver']['config_path'],
     :config_file => node['beaver']['config_file'],
     :log_path => node['beaver']['log_path'],
-    :log_file => node['beaver']['log_file']
+    :log_file => node['beaver']['log_file'],
+    :cli_args => node['beaver']['cli_args']
   )
 end
 

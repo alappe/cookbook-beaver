@@ -32,6 +32,7 @@ default['beaver'] = {
   'ssh_key_file' => 'logger',
   'config_path' => '/etc/beaver',
   'config_file' => 'beaver.conf',
+  'cli_args' => '',
   'configuration' => {
     'respawn_delay' => 3,
     'max_failure' => 7

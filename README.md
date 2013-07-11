@@ -35,6 +35,7 @@ Attributes
 |<tt>['beaver']['ssh_key_file']</tt>|String|Basename of the keyfiles to generate|<tt>logger</tt>|
 |<tt>['beaver']['config_path']</tt>|String|Configuration path|<tt>/etc/beaver</tt>|
 |<tt>['beaver']['config_file']</tt>|String|Configuration file|<tt>beaver.conf</tt>|
+|<tt>['beaver']['cli_args']</tt>|String|Extra cli args (For setting transport, etc)|<tt>nil</tt>|
 |<tt>['beaver']['configuration']</tt>|Hash|Key/Value [configuration pairs](https://github.com/josegonzalez/beaver#configuration-file-options)|<tt>{ 'respawn_delay' => 3, 'max_failure' => 7 }|
 |<tt>['beaver']['files']</tt>|Array|Array containing hashes like `{ 'path' => '/var/log/syslog', 'type' => 'syslogs', 'tags' => 'sys, syslog' }` for files to watch|<tt>[]</tt>|
 

@@ -110,6 +110,36 @@ the node. This key can then be searched by e.g. the logstash host and
 grant password-free access to tunnel e.g. redis (or anything else)
 through it.
 
+#### Configuration example (role)
+
+```json
+{
+  "name": "logstash-client",
+  "description": "",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "default_attributes": {
+    "beaver": {
+		  "generate_keypair": true,
+			"configuration": {
+				"transport": "redis",
+				"redis_url": "redis://localhost:6379/0",
+				"redis_namespace": "logstash:beaver",
+				"ssh_key_file": "remote_key",
+				"ssh_tunnel": "logging@logs.example.net",
+				"ssh_tunnel_port": 6379,
+				"ssh_remote_host": "127.0.0.1",
+				"ssh_remote_port": "6379"
+			}
+    }
+  },
+  "run_list": [
+    "recipe[python]",
+    "recipe[beaver]"
+  ],
+}
+```
+
 Contributing
 ------------
 1. Fork the repository on Github

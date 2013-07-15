@@ -122,6 +122,7 @@ Contributing
 Authors
 -------
 
+* Josh Pasqualetto
 * Jeff Ramnani
 * Andreas Lappe
 

@@ -120,16 +120,16 @@ through it.
   "chef_type": "role",
   "default_attributes": {
     "beaver": {
-		  "generate_keypair": true,
-			"configuration": {
-				"transport": "redis",
-				"redis_url": "redis://localhost:6379/0",
-				"redis_namespace": "logstash:beaver",
-				"ssh_key_file": "remote_key",
-				"ssh_tunnel": "logging@logs.example.net",
-				"ssh_tunnel_port": 6379,
-				"ssh_remote_host": "127.0.0.1",
-				"ssh_remote_port": "6379"
+      "generate_keypair": true,
+      "configuration": {
+        "transport": "redis",
+        "redis_url": "redis://localhost:6379/0",
+        "redis_namespace": "logstash:beaver",
+        "ssh_key_file": "remote_key",
+        "ssh_tunnel": "logging@logs.example.net",
+        "ssh_tunnel_port": 6379,
+        "ssh_remote_host": "127.0.0.1",
+        "ssh_remote_port": "6379"
 			}
     }
   },

@@ -130,7 +130,7 @@ through it.
         "ssh_tunnel_port": 6379,
         "ssh_remote_host": "127.0.0.1",
         "ssh_remote_port": "6379"
-			}
+      }
     }
   },
   "run_list": [

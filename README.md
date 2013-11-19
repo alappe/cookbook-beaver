@@ -152,9 +152,10 @@ Contributing
 Authors
 -------
 
-* Josh Pasqualetto
-* Jeff Ramnani
-* Andreas Lappe
+* [Mirko Kiefer](https://github.com/mirkokiefer)
+* [Josh Pasqualetto](https://github.com/sniperd)
+* [Jeff Ramnani](https://github.com/jramnani)
+* [Andreas Lappe](https://github.com/alappe)
 
 License
 -------

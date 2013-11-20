@@ -55,6 +55,15 @@ service 'beaver' do
   action :nothing
 end
 
+logFiles = node['beaver']['files'].map { |each|
+  path = each["path"]
+  options = each.reject { |key, value| key == "path" }
+  {
+    "path" => path,
+    "options" => options
+  }
+}
+
 template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   source 'beaver.conf.erb'
   owner 'root'
@@ -62,7 +71,7 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   mode 00644
   variables(
     :beaver => node['beaver']['configuration'],
-    :files => node['beaver']['files']
+    :files => logFiles
   )
   notifies :restart, "service[beaver]"
 end

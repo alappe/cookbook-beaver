@@ -5,9 +5,10 @@
 <% @beaver.each do |key, value| %>
 <%= "#{key}: #{value}" %>
 <% end %>
-<% @files.each do |file| %>
 
-[<%= file['path'] %>]
-type: <%= file['type'] %>
-tags: <%= file['tags'] %>
+<% @files.each do |file| %>
+[<%= file["path"] %>]
+  <% file["options"].each do |key, value| %>
+<%= "#{key}: #{value}" %>
+  <% end %>
 <% end %>

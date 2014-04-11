@@ -145,11 +145,11 @@ through it.
 #### Input Type Configuration (Hash)
 ```
   node.set['beaver']['input_type']['amqp'] = {
-  'name' => "'logstash_queue'",
-  'type' => "'direct'",
-  'host' => "'10.0.0.1'",
-  'exchange' => "'logstash-exchange'",
-  'key' => "'logstash-key'",
+  'name' => "logstash_queue",
+  'type' => "direct",
+  'host' => "10.0.0.1",
+  'exchange' => "logstash-exchange",
+  'key' => "logstash-key",
   'exclusive' => false,
   'durable' => false,
   'auto_delete' => false,

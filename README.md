@@ -37,6 +37,8 @@ Attributes
 |<tt>['beaver']['config_file']</tt>|String|Configuration file|<tt>beaver.conf</tt>|
 |<tt>['beaver']['configuration']</tt>|Hash|Key/Value [configuration pairs](https://github.com/josegonzalez/beaver#configuration-file-options)|<tt>{ 'respawn_delay' => 3, 'max_failure' => 7 }|
 |<tt>['beaver']['files']</tt>|Array|Array containing hashes like `{ 'path' => '/var/log/syslog', 'type' => 'syslogs', 'tags' => 'sys, syslog' }` for files to watch|<tt>[]</tt>|
+|<tt>['beaver']['input_type']['tcp|ampq|etc']</tt>|Hash|Key/Value[input_types](http://beaver.readthedocs.org/en/latest/search.html?q=type&check_keywords=yes&area=default)|
+|<tt>['beaver']['output']</tt>|Hash|Key/Value|
 
 Resources/Providers
 -------------------
@@ -137,6 +139,27 @@ through it.
     "recipe[python]",
     "recipe[beaver]"
   ],
+}
+```
+
+#### Input Type Configuration (Hash)
+```
+  node.set['beaver']['input_type']['amqp'] = {
+  'name' => "'logstash_queue'",
+  'type' => "'direct'",
+  'host' => "'10.0.0.1'",
+  'exchange' => "'logstash-exchange'",
+  'key' => "'logstash-key'",
+  'exclusive' => false,
+  'durable' => false,
+  'auto_delete' => false,
+}
+```
+
+#### Output Type Configuration (Hash)
+```
+node.set['beaver']['output'] = {
+    'output' => 'stdout { debug => true }'
 }
 ```
 

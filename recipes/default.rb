@@ -71,6 +71,8 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   mode 00644
   variables(
     :beaver => node['beaver']['configuration'],
+    :input => node['beaver']['input_type'],
+    :output => node['beaver']['output'],
     :files => logFiles
   )
   notifies :restart, "service[beaver]"

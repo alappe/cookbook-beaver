@@ -6,28 +6,6 @@
 <%= "#{key}: #{value}" %>
 <% end %>
 
-<% if @input && @input.any? %>
-<% @input.each do |input_type| %>
-input {
-<%= input_type.first %> {
-<% input_type.last.each do |key, value| %>
-  <% if value.is_a?(TrueClass) || value.is_a?(FalseClass) %>
-    <%= "#{key} => #{value}" %>
-  <% else %>
-    <%= "#{key} => '#{value}'" %>
-  <% end %>
-<% end %>
-  }
-}
-<% end %>
-<% end %>
-
-<% if @output && @output.any? %>
-<% @output.each do |key, value| %>
-<%= "#{key} { #{value} }" %>
-<% end %>
-<% end %>
-
 <% @files.each do |file| %>
 [<%= file["path"] %>]
   <% file["options"].each do |key, value| %>

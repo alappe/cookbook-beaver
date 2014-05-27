@@ -34,14 +34,14 @@ end
 directory node['beaver']['config_path'] do
   owner 'root'
   group 'root'
-  mode 0755
+  mode '0755'
   action :create
 end
 
 directory ::File.join(node['beaver']['config_path'], 'conf.d') do
   owner 'root'
   group 'root'
-  mode 0755
+  mode '0755'
   action :create
 end
 
@@ -68,7 +68,7 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   source 'beaver.conf.erb'
   owner 'root'
   group 'root'
-  mode 00644
+  mode '0644'
   variables(
     :beaver => node['beaver']['configuration'],
     :files => logFiles
@@ -80,7 +80,7 @@ template '/etc/init/beaver.conf' do
   source 'beaver-upstart.erb'
   owner 'root'
   group 'root'
-  mode 00644
+  mode '0644'
   variables(
     :config_path => node['beaver']['config_path'],
     :config_file => node['beaver']['config_file'],

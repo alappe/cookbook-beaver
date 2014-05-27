@@ -24,9 +24,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "python"
+include_recipe 'python'
 
-python_pip 'beaver' do 
+python_pip 'beaver' do
   version node['beaver']['version']
   action :install
 end
@@ -38,7 +38,7 @@ directory node['beaver']['config_path'] do
   action :create
 end
 
-directory ::File.join(node['beaver']['config_path'], "conf.d") do
+directory ::File.join(node['beaver']['config_path'], 'conf.d') do
   owner 'root'
   group 'root'
   mode 0755
@@ -55,14 +55,14 @@ service 'beaver' do
   action :nothing
 end
 
-logFiles = node['beaver']['files'].map { |each|
-  path = each["path"]
-  options = each.reject { |key, value| key == "path" }
+logFiles = node['beaver']['files'].map do |each|
+  path = each['path']
+  options = each.reject { |key, _value| key == 'path' }
   {
-    "path" => path,
-    "options" => options
+    'path' => path,
+    'options' => options
   }
-}
+end
 
 template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   source 'beaver.conf.erb'
@@ -73,11 +73,11 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
     :beaver => node['beaver']['configuration'],
     :files => logFiles
   )
-  notifies :restart, "service[beaver]"
+  notifies :restart, 'service[beaver]'
 end
 
-template "/etc/init/beaver.conf" do
-  source "beaver-upstart.erb"
+template '/etc/init/beaver.conf' do
+  source 'beaver-upstart.erb'
   owner 'root'
   group 'root'
   mode 00644

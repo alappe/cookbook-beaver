@@ -36,6 +36,7 @@ directory node['beaver']['config_path'] do
   group 'root'
   mode '0755'
   action :create
+  recursive true
 end
 
 directory ::File.join(node['beaver']['config_path'], 'conf.d') do
@@ -45,17 +46,9 @@ directory ::File.join(node['beaver']['config_path'], 'conf.d') do
   action :create
 end
 
-if node['beaver']['generate_keypair']
-  include_recipe 'beaver::generate_keypair'
-end
+include_recipe 'beaver::generate_keypair' if node['beaver']['generate_keypair']
 
-service 'beaver' do
-  provider Chef::Provider::Service::Upstart
-  supports :start => true, :restart => true, :stop => true, :status => true
-  action :nothing
-end
-
-logFiles = node['beaver']['files'].map do |each|
+log_files = node['beaver']['files'].map do |each|
   path = each['path']
   options = each.reject { |key, _value| key == 'path' }
   {
@@ -71,24 +64,44 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   mode '0644'
   variables(
     :beaver => node['beaver']['configuration'],
-    :files => logFiles
+    :files => log_files
   )
   notifies :restart, 'service[beaver]'
 end
 
-template '/etc/init/beaver.conf' do
-  source 'beaver-upstart.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  variables(
-    :config_path => node['beaver']['config_path'],
-    :config_file => node['beaver']['config_file'],
-    :log_path => node['beaver']['log_path'],
-    :log_file => node['beaver']['log_file']
-  )
+# setup the appropriate init script for the platform
+if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
+  template '/etc/init/beaver.conf' do
+    source 'beaver-upstart.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+    variables(
+      :config_path => node['beaver']['config_path'],
+      :config_file => node['beaver']['config_file'],
+      :log_path => node['beaver']['log_path'],
+      :log_file => node['beaver']['log_file']
+    )
+    notifies :restart, 'service[beaver]'
+  end
+else
+  template '/etc/init.d/beaver' do
+    source 'beaver-init.erb'
+    owner 'root'
+    group 'root'
+    mode '0755'
+    variables(
+      :config_path => node['beaver']['config_path'],
+      :config_file => node['beaver']['config_file'],
+      :log_path => node['beaver']['log_path'],
+      :log_file => node['beaver']['log_file']
+    )
+    notifies :restart, 'service[beaver]'
+  end
 end
 
 service 'beaver' do
+  provider Chef::Provider::Service::Upstart if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
+  supports :start => true, :restart => true, :stop => true, :status => true
   action [:enable, :start]
 end

@@ -10,6 +10,6 @@ recipe           'beaver', 'Installs and configures beaver to ship logs to logst
   depends cookbook
 end
 
-%w(ubuntu).each do |os|
+%w(ubuntu centos rhel amazon scientific oracle).each do |os|
   supports os
 end

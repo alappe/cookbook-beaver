@@ -20,6 +20,7 @@ action :create do
       variables(
                   :name => new_resource.name,
                   :add_field => new_resource.add_field.join(','),
+                  :add_field_env => new_resource.add_field_env.join(','),
                   :exclude => new_resource.exclude,
                   :format => new_resource.format,
                   :path => new_resource.path,

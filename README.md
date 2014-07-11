@@ -176,6 +176,8 @@ Contributing
 Authors
 -------
 
+* [rampire](https://github.com/rampire)
+* [Tim Smith](https://github.com/tas50)
 * [Mirko Kiefer](https://github.com/mirkokiefer)
 * [Josh Pasqualetto](https://github.com/sniperd)
 * [Jeff Ramnani](https://github.com/jramnani)

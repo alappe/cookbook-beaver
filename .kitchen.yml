@@ -5,23 +5,10 @@ platforms:
 - name: ubuntu-12.04
   driver_config:
     provider: vmware_fusion
-    box: precise64
-    #box: canonical-ubuntu-12.04
-    box_url: http://files.vagrantup.com/precise64_vmware.box
+    box: opscode-ubuntu-12.04
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-12.04_chef-provisionerless.box
     require_chef_omnibus: true
-#- name: ubuntu-10.04
-#  driver_config:
-#    box: opscode-ubuntu-10.04
-#    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_chef-11.2.0.box
-#- name: centos-6.3
-#  driver_config:
-#    box: opscode-centos-6.3
-#    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.3_chef-11.2.0.box
-#- name: centos-5.8
-#  driver_config:
-#    box: opscode-centos-5.8
-#    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.8_chef-11.2.0.box
-- name: centos-6.4
+- name: centos-6.5
   driver_config:
     provider: vmware_fusion
     box: opscode-centos-6.5

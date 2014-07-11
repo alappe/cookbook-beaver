@@ -24,17 +24,17 @@ platforms:
 
 suites:
 - name: default
-  run_list: ["recipe[python]","recipe[beaver]"]
+  run_list: ["recipe[apt]", "recipe[beaver]"]
   attributes: {}
 
 - name: keypair
-  run_list: ["recipe[python]","recipe[beaver]"]
+  run_list: ["recipe[apt]", "recipe[python]","recipe[beaver]"]
   attributes:
     beaver:
       generate_keypair: true
 
 - name: configuration
-  run_list: ["recipe[python]","recipe[beaver]"]
+  run_list: ["recipe[apt]", "recipe[python]","recipe[beaver]"]
   attributes:
     beaver:
       configuration:

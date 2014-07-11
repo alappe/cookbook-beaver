@@ -4,6 +4,7 @@ default_action :create
 
 attribute :name, :kind_of => String, :name_attribute => true
 attribute :add_field, :kind_of => Array, :default => []
+attribute :add_field_env, :kind_of => Array, :default => []
 attribute :cookbook, :kind_of => String, :default => 'beaver'
 attribute :exclude, :kind_of => String
 attribute :format, :kind_of => String, :default => 'json_event'

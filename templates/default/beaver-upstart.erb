@@ -17,5 +17,5 @@ setuid root
 setgid root
 
 script
-exec beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %>
+exec su root -l -c 'beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %>'
 end script

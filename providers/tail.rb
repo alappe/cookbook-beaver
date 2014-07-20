@@ -21,8 +21,10 @@ action :create do
       mode '0644'
       variables(
         :name => new_resource.name,
-        :add_field => new_resource.add_field,
-        :add_field_env => new_resource.add_field_env,
+
+        # convert hashes into [key-1, value-1, key-2, value-2, ...] arrays
+        :add_field => new_resource.add_field.to_a.flatten,
+        :add_field_env => new_resource.add_field_env.to_a.flatten,
         :exclude => new_resource.exclude,
         :format => new_resource.format,
         :path => [new_resource.path].flatten,

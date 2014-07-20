@@ -13,9 +13,9 @@ respawn
 respawn limit 5 30
 limit nofile 65550 65550
 
-setuid root
-setgid root
+setuid <%= @user %>
+setgid <%= @group %>
 
 script
-exec su root -l -c 'beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %>'
+exec beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %>
 end script

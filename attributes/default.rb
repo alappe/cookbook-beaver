@@ -26,6 +26,8 @@
 
 default['beaver'] = {
   'version' => '31',
+  'user' => 'root',
+  'group' => 'root',
   'log_path' => '/var/log',
   'log_file' => 'beaver.log',
   'generate_keypair' => false,
@@ -50,6 +52,15 @@ if node['platform_family'] == 'debian'
       'path' => '/var/log/auth.log',
       'type' => 'syslog',
       'tags' => 'auth'
+    }
+  ]
+else
+  default['beaver']['files'] = [
+    {
+      'path' => '/var/log/*log',
+      'type' => 'syslog',
+      'tags' => 'syslog',
+      'exclude' => 'beaver\.log'
     }
   ]
 end

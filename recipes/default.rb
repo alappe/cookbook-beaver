@@ -26,24 +26,50 @@
 
 include_recipe 'python'
 
+user node['beaver']['user'] do
+  action :create
+  comment "Beaver System User"
+  home node['beaver']['config_path']
+  system true
+  not_if { node['beaver']['user'] == 'root' }
+end
+
+group node['beaver']['group'] do
+  action :create
+  not_if { node['beaver']['group'] == 'root' }
+end
+
+group node['beaver']['group'] do
+  action :modify
+  members node['beaver']['user']
+  append true
+  not_if { node['beaver']['group'] == 'root' }
+end
+
 python_pip 'beaver' do
   version node['beaver']['version']
   action :install
 end
 
 directory node['beaver']['config_path'] do
-  owner 'root'
-  group 'root'
+  owner node['beaver']['user']
+  group node['beaver']['group']
   mode '0755'
   action :create
   recursive true
 end
 
 directory ::File.join(node['beaver']['config_path'], 'conf.d') do
-  owner 'root'
-  group 'root'
+  owner node['beaver']['user']
+  group node['beaver']['group']
   mode '0755'
   action :create
+end
+
+file "#{node['beaver']['log_path']}/#{node['beaver']['log_file']}" do
+  action :create
+  owner node['beaver']['user']
+  group node['beaver']['group']
 end
 
 include_recipe 'beaver::generate_keypair' if node['beaver']['generate_keypair']
@@ -59,8 +85,8 @@ end
 
 template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   source 'beaver.conf.erb'
-  owner 'root'
-  group 'root'
+  owner node['beaver']['user']
+  group node['beaver']['group']
   mode '0644'
   variables(
     :beaver => node['beaver']['configuration'],
@@ -73,28 +99,31 @@ end
 if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
   template '/etc/init/beaver.conf' do
     source 'beaver-upstart.erb'
-    owner 'root'
-    group 'root'
+    owner node['beaver']['user']
+    group node['beaver']['group']
     mode '0644'
     variables(
       :config_path => node['beaver']['config_path'],
       :config_file => node['beaver']['config_file'],
       :log_path => node['beaver']['log_path'],
-      :log_file => node['beaver']['log_file']
+      :log_file => node['beaver']['log_file'],
+      :user => node['beaver']['user'],
+      :group => node['beaver']['group']
     )
     notifies :restart, 'service[beaver]'
   end
 else
   template '/etc/init.d/beaver' do
     source 'beaver-init.erb'
-    owner 'root'
-    group 'root'
+    owner node['beaver']['user']
+    group node['beaver']['group']
     mode '0755'
     variables(
       :config_path => node['beaver']['config_path'],
       :config_file => node['beaver']['config_file'],
       :log_path => node['beaver']['log_path'],
-      :log_file => node['beaver']['log_file']
+      :log_file => node['beaver']['log_file'],
+      :user => node['beaver']['user']
     )
     notifies :restart, 'service[beaver]'
   end

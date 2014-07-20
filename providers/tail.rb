@@ -16,6 +16,8 @@ action :create do
     t = template ::File.join(node['beaver']['config_path'], 'conf.d', new_resource.name) do
       source 'beaver-tail.conf.erb'
       cookbook new_resource.cookbook
+      user node['beaver']['user']
+      group node['beaver']['group']
       mode '0644'
       variables(
                   :name => new_resource.name,

@@ -28,7 +28,7 @@ include_recipe 'python'
 
 user node['beaver']['user'] do
   action :create
-  comment "Beaver System User"
+  comment 'Beaver System User'
   home node['beaver']['config_path']
   system true
   not_if { node['beaver']['user'] == 'root' }

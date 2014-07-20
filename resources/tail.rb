@@ -13,4 +13,3 @@ attribute :tags, :kind_of => Array, :default => []
 attribute :type, :kind_of => String, :default => 'file'
 attribute :multiline_regex_after, :kind_of => [String, NilClass]
 attribute :multiline_regex_before, :kind_of => [String, NilClass]
-

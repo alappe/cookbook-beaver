@@ -72,6 +72,12 @@ file "#{node['beaver']['log_path']}/#{node['beaver']['log_file']}" do
   group node['beaver']['group']
 end
 
+file "#{node['beaver']['pid_file']}" do
+  action :create
+  owner node['beaver']['user']
+  group node['beaver']['group']
+end
+
 include_recipe 'beaver::generate_keypair' if node['beaver']['generate_keypair']
 
 log_files = node['beaver']['files'].map do |each|
@@ -107,6 +113,7 @@ if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
       :config_file => node['beaver']['config_file'],
       :log_path => node['beaver']['log_path'],
       :log_file => node['beaver']['log_file'],
+      :pid_file => node['beaver']['pid_file'],
       :user => node['beaver']['user'],
       :group => node['beaver']['group']
     )
@@ -123,6 +130,7 @@ else
       :config_file => node['beaver']['config_file'],
       :log_path => node['beaver']['log_path'],
       :log_file => node['beaver']['log_file'],
+      :pid_file => node['beaver']['pid_file'],
       :user => node['beaver']['user']
     )
     notifies :restart, 'service[beaver]'

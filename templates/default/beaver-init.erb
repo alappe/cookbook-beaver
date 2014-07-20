@@ -20,7 +20,7 @@
 
 
 BEAVER_NAME='beaver'
-BEAVER_CMD='beaver -c <%= File.join(@config_path, @config_file) %> -l <%= File.join(@log_path, @log_file) %>'
+BEAVER_CMD='beaver -c <%= File.join(@config_path, @config_file) %> -l <%= File.join(@log_path, @log_file) %> -P <%= @pid_file %>'
 BEAVER_PID='/var/run/beaver.pid'
 BEAVER_USER='<%= @user %>'
 BEAVER_LOG='<%= File.join(@log_path, @log_file) %>'

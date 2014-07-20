@@ -30,6 +30,7 @@ default['beaver'] = {
   'group' => 'root',
   'log_path' => '/var/log',
   'log_file' => 'beaver.log',
+  'pid_file' => '/var/run/beaver.pid',
   'generate_keypair' => false,
   'ssh_key_file' => 'logger',
   'config_path' => '/etc/beaver',

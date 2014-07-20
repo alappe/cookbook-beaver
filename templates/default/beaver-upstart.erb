@@ -17,5 +17,5 @@ setuid <%= @user %>
 setgid <%= @group %>
 
 script
-exec beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %>
+exec beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %> -P <%= @pid_file %>
 end script

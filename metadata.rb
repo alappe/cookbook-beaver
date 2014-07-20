@@ -4,7 +4,7 @@ maintainer_email 'nd@kaeufli.ch'
 license          'Apache 2.0'
 description      'Installs/Configures beaver'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.3.0'
+version          '1.4.0'
 recipe           'beaver', 'Installs and configures beaver to ship logs to logstash'
 
 %w(python apt).each do |cookbook|

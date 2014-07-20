@@ -25,7 +25,7 @@
 #
 
 default['beaver'] = {
-  'version' => '30',
+  'version' => '31',
   'log_path' => '/var/log',
   'log_file' => 'beaver.log',
   'generate_keypair' => false,

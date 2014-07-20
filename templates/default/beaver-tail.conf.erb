@@ -5,7 +5,7 @@
 <%- @path.each do |path| %>
 [<%= path %>]
 type: <%= @type %>
-<%- unless @format.empty? %>
+<%- unless @format.nil? %>
 format: <%= @format %>
 <%- end %>
 <%- unless @tags.empty? %>

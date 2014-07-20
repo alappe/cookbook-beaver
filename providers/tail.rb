@@ -20,14 +20,16 @@ action :create do
       group node['beaver']['group']
       mode '0644'
       variables(
-                  :name => new_resource.name,
-                  :add_field => new_resource.add_field.join(','),
-                  :add_field_env => new_resource.add_field_env.join(','),
-                  :exclude => new_resource.exclude,
-                  :format => new_resource.format,
-                  :path => new_resource.path,
-                  :tags => new_resource.tags.join(','),
-                  :type => new_resource.type
+        :name => new_resource.name,
+        :add_field => new_resource.add_field,
+        :add_field_env => new_resource.add_field_env,
+        :exclude => new_resource.exclude,
+        :format => new_resource.format,
+        :path => [new_resource.path].flatten,
+        :tags => new_resource.tags,
+        :type => new_resource.type,
+        :multiline_regex_before => new_resource.multiline_regex_before,
+        :multiline_regex_after => new_resource.multiline_regex_after
       )
       action :create
       notifies :restart, 'service[beaver]'

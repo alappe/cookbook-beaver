@@ -1,13 +1,30 @@
-[<%= @path %>]
+# This file is managed by Chef for <%= node['fqdn'] %>
+# Do NOT modify this file directly.
+#
+
+<%- @path.each do |path| %>
+[<%= path %>]
 type: <%= @type %>
+<%- unless @format.empty? %>
 format: <%= @format %>
-<%- unless @tags.nil? %>
-tags: <%= @tags %>
 <%- end %>
-<%- unless @add_field.nil? %>
-add_field: <%= @add_field %>
+<%- unless @tags.empty? %>
+tags: <%= @tags.join(',') %>
 <%- end %>
-<%- unless @add_field_env.nil? %>
-add_field_env: <%= @add_field_env %>
+<%- unless @add_field.empty? %>
+add_field: <%= @add_field.join(',') %>
 <%- end %>
+<%- unless @add_field_env.empty? %>
+add_field_env: <%= @add_field_env.join(',') %>
+<%- end %>
+<%- unless @exclude.nil? %>
 exclude: <%= @exclude %>
+<%- end %>
+<%- unless @multiline_regex_before.nil? %>
+multiline_regex_before: <%= @multiline_regex_before %>
+<%- end %>
+<%- unless @multiline_regex_after.nil? %>
+multiline_regex_after: <%= @multiline_regex_after %>
+<%- end %>
+
+<%- end %>

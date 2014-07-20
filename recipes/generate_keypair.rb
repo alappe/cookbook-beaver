@@ -33,6 +33,10 @@ execute 'Create a public key pair to access the central logging host' do
   creates private_key
 end
 
+execute 'Change ownership of keys to beaver user/group' do
+  command "chown #{node['beaver']['user']}:#{node['beaver']['group']} #{private_key} #{private_key}.pub"
+end
+
 if File.file?(private_key)
   public_key = File.open("#{private_key}.pub", 'rb') { |file| file.read }
   node.set['beaver']['public_key'] = public_key

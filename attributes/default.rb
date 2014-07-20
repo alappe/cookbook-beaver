@@ -25,7 +25,9 @@
 #
 
 default['beaver'] = {
-  'version' => '30',
+  'version' => '31',
+  'user' => 'root',
+  'group' => 'root',
   'log_path' => '/var/log',
   'log_file' => 'beaver.log',
   'generate_keypair' => false,
@@ -33,6 +35,7 @@ default['beaver'] = {
   'config_path' => '/etc/beaver',
   'config_file' => 'beaver.conf',
   'configuration' => {
+    'logstash_version' => 1,
     'respawn_delay' => 3,
     'max_failure' => 7
   },
@@ -49,6 +52,15 @@ if node['platform_family'] == 'debian'
       'path' => '/var/log/auth.log',
       'type' => 'syslog',
       'tags' => 'auth'
+    }
+  ]
+else
+  default['beaver']['files'] = [
+    {
+      'path' => '/var/log/*log',
+      'type' => 'syslog',
+      'tags' => 'syslog',
+      'exclude' => 'beaver\.log'
     }
   ]
 end

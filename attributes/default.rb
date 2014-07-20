@@ -35,6 +35,7 @@ default['beaver'] = {
   'config_path' => '/etc/beaver',
   'config_file' => 'beaver.conf',
   'configuration' => {
+    'confd_path' => '/etc/beaver/conf.d',
     'logstash_version' => 1,
     'respawn_delay' => 3,
     'max_failure' => 7

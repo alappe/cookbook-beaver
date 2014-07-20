@@ -40,7 +40,8 @@ default['beaver'] = {
     'respawn_delay' => 3,
     'max_failure' => 7
   },
-  'files' => []
+  'files' => [],
+  'default_tail_format' => 'json_event'
 }
 
 if node['platform_family'] == 'debian'

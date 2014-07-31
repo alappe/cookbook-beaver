@@ -178,6 +178,7 @@ Contributing
 Authors
 -------
 
+* [Daryl Robbins](https://github.com/darylrobbins)
 * [rampire](https://github.com/rampire)
 * [Tim Smith](https://github.com/tas50)
 * [Mirko Kiefer](https://github.com/mirkokiefer)

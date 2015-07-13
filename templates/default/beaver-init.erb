@@ -27,6 +27,11 @@ BEAVER_LOG='<%= File.join(@log_path, @log_file) %>'
 
 
 PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+<% if node['beaver']['use_virtualenv'] %>
+PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:<%= node['beaver']['virtualenv_path'] %>/bin'
+<% else %>
+PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+<% end %>
 export PATH
 IFS=$' \t\n'
 export IFS
@@ -44,7 +49,11 @@ do_start() {
         return 0
     fi
     echo -n $"Log Sender server daemon: ${BEAVER_NAME}"
+    <% if node['beaver']['use_virtualenv'] %>
+    su - "${BEAVER_USER}" -s '/bin/bash' -c "PATH=$PATH:<%= node['beaver']['virtualenv_path'] %>/bin ${BEAVER_CMD} >> ${BEAVER_LOG} 2>&1 & echo \$! > ${BEAVER_PID}"
+    <% else %>
     su - "${BEAVER_USER}" -s '/bin/bash' -c "${BEAVER_CMD} >> ${BEAVER_LOG} 2>&1 & echo \$! > ${BEAVER_PID}"
+    <% end %>
     echo '.'
 }
 

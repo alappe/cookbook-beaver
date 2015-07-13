@@ -46,8 +46,24 @@ group node['beaver']['group'] do
   not_if { node['beaver']['group'] == 'root' }
 end
 
+python_virtualenv '/opt/beaver' do
+  interpreter 'python'
+  owner 'root'
+  group 'root'
+  action :create
+  only_if {node['beaver']['use_virtualenv']}
+end
+
+python_pip 'setuptools-venv' do
+  package_name 'setuptools'
+  virtualenv '/opt/beaver'
+  action :upgrade
+  only_if {node['beaver']['use_virtualenv']}
+end
+
 python_pip 'beaver' do
   version node['beaver']['version']
+  virtualenv node['beaver']['virtualenv_path'] if node['beaver']['use_virtualenv']
   action :install
 end
 

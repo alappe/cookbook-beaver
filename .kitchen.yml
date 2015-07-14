@@ -20,6 +20,12 @@ suites:
   run_list: ["recipe[apt]", "recipe[beaver]"]
   attributes: {}
 
+- name: virtualenv
+  run_list: ["recipe[apt]", "recipe[beaver]"]
+  attributes:
+    beaver:
+      use_virtualenv: true
+
 - name: keypair
   run_list: ["recipe[apt]", "recipe[python]","recipe[beaver]"]
   attributes:

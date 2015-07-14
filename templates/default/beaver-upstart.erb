@@ -17,5 +17,9 @@ setuid <%= @user %>
 setgid <%= @group %>
 
 script
+<% if node['beaver']['use_virtualenv'] %>
+exec <%= node['beaver']['virtualenv_path'] %>/bin/beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %> -P <%= @pid_file %>
+<% else %>
 exec beaver -c <%= @config_path %>/<%= @config_file %> -l <%= @log_path %>/<%= @log_file %> -P <%= @pid_file %>
+<% end %>
 end script

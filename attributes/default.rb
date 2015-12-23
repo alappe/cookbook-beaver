@@ -69,3 +69,7 @@ else
     }
   ]
 end
+
+# Beaver only supports Python 2 at present.
+default['poise-python']['beaver']['provider'] = 'system'
+default['poise-python']['beaver']['version'] = '2'

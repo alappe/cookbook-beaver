@@ -7,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.5.0'
 recipe           'beaver', 'Installs and configures beaver to ship logs to logstash'
 
-%w(python apt).each do |cookbook|
+%w(poise-python apt).each do |cookbook|
   depends cookbook
 end
 

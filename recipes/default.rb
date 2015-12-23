@@ -24,7 +24,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe 'python'
+python_runtime 'beaver'
 
 user node['beaver']['user'] do
   action :create
@@ -46,25 +46,30 @@ group node['beaver']['group'] do
   not_if { node['beaver']['group'] == 'root' }
 end
 
-python_virtualenv '/opt/beaver' do
-  interpreter 'python'
-  owner 'root'
+python_virtualenv node['beaver']['virtualenv_path'] do
+  python 'beaver'
+  user 'root'
   group 'root'
   action :create
   only_if {node['beaver']['use_virtualenv']}
 end
 
-python_pip 'setuptools-venv' do
+python_package 'setuptools-venv' do
   package_name 'setuptools'
-  virtualenv '/opt/beaver'
+  virtualenv node['beaver']['virtualenv_path']
   action :upgrade
   only_if {node['beaver']['use_virtualenv']}
 end
 
-python_pip 'beaver' do
+python_package 'beaver' do
   version node['beaver']['version']
-  virtualenv node['beaver']['virtualenv_path'] if node['beaver']['use_virtualenv']
   action :install
+
+  if node['beaver']['use_virtualenv']
+    virtualenv node['beaver']['virtualenv_path']
+  else
+    python 'beaver'
+  end
 end
 
 directory node['beaver']['config_path'] do

@@ -117,7 +117,14 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   notifies :restart, 'service[beaver]'
 end
 
-upstart = node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
+systemd = node['init_package'] == 'systemd'
+upstart = !systemd && node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
+
+execute 'beaver systemd reload' do
+  command 'systemctl daemon-reload'
+  action :nothing
+  only_if { systemd }
+end
 
 template 'beaver init script' do
   owner 'root'
@@ -125,7 +132,12 @@ template 'beaver init script' do
   variables node['beaver']
   notifies :restart, 'service[beaver]'
 
-  if upstart
+  if systemd
+    path '/lib/systemd/system/beaver.service'
+    source 'beaver.service.erb'
+    mode '0644'
+    notifies :run, 'execute[beaver systemd reload]', :immediately
+  elsif upstart
     path '/etc/init/beaver.conf'
     source 'beaver-upstart.erb'
     mode '0644'

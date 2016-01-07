@@ -117,44 +117,27 @@ template "#{node['beaver']['config_path']}/#{node['beaver']['config_file']}" do
   notifies :restart, 'service[beaver]'
 end
 
-# setup the appropriate init script for the platform
-if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
-  template '/etc/init/beaver.conf' do
+upstart = node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
+
+template 'beaver init script' do
+  owner 'root'
+  group 'root'
+  variables node['beaver']
+  notifies :restart, 'service[beaver]'
+
+  if upstart
+    path '/etc/init/beaver.conf'
     source 'beaver-upstart.erb'
-    owner node['beaver']['user']
-    group node['beaver']['group']
     mode '0644'
-    variables(
-      :config_path => node['beaver']['config_path'],
-      :config_file => node['beaver']['config_file'],
-      :log_path => node['beaver']['log_path'],
-      :log_file => node['beaver']['log_file'],
-      :pid_file => node['beaver']['pid_file'],
-      :user => node['beaver']['user'],
-      :group => node['beaver']['group']
-    )
-    notifies :restart, 'service[beaver]'
-  end
-else
-  template '/etc/init.d/beaver' do
+  else
+    path '/etc/init.d/beaver'
     source 'beaver-init.erb'
-    owner node['beaver']['user']
-    group node['beaver']['group']
     mode '0755'
-    variables(
-      :config_path => node['beaver']['config_path'],
-      :config_file => node['beaver']['config_file'],
-      :log_path => node['beaver']['log_path'],
-      :log_file => node['beaver']['log_file'],
-      :pid_file => node['beaver']['pid_file'],
-      :user => node['beaver']['user']
-    )
-    notifies :restart, 'service[beaver]'
   end
 end
 
 service 'beaver' do
-  provider Chef::Provider::Service::Upstart if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
+  provider Chef::Provider::Service::Upstart if upstart
   supports :start => true, :restart => true, :stop => true, :status => true
   action [:enable, :start]
 end

@@ -179,6 +179,10 @@ Contributing
 Authors
 -------
 
+* Anthony Caiafa
+* [Eugene Migolinets](https://github.com/rampire)
+* [James Le Cuirot](https://github.com/chewi)
+* [Pavel Yudin](https://github.com/kasen)
 * [Daryl Robbins](https://github.com/darylrobbins)
 * [rampire](https://github.com/rampire)
 * [Tim Smith](https://github.com/tas50)

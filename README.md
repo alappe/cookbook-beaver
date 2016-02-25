@@ -21,7 +21,7 @@ The following platform families are supported:
 
 ### Cookbooks
 
-* python (to use the pip LWRP)
+* poise-python (to use the python_package LWRP)
 
 Attributes
 ----------
@@ -42,6 +42,8 @@ Attributes
 |<tt>['beaver']['files']</tt>|Array|Array containing hashes like `{ 'path' => '/var/log/syslog', 'type' => 'syslogs', 'tags' => 'sys, syslog' }` for files to watch|<tt>[]</tt>|
 |<tt>['beaver']['input_type']['tcp/ampq/etc']</tt>|Hash|Key/Value [input_types](http://beaver.readthedocs.org/en/latest/search.html?q=type&check_keywords=yes&area=default)|
 |<tt>['beaver']['output']</tt>|Hash|Key/Value|
+|<tt>['poise-python']['beaver']['provider']</tt>|String|Python provider to install with. See poise-python for details.|<tt>system</tt>|
+|<tt>['poise-python']['beaver']['version']</tt>|String|Python version to install. Blank means any. Beaver only supports 2 as of v36.|<tt>'2'</tt>|
 
 Resources/Providers
 -------------------
@@ -139,7 +141,6 @@ through it.
     }
   },
   "run_list": [
-    "recipe[python]",
     "recipe[beaver]"
   ],
 }

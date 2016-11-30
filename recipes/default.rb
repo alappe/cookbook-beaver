@@ -130,6 +130,7 @@ if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
     group node['beaver']['group']
     mode '0644'
     variables(
+      :startup_options => node['beaver']['startup_options'],
       :config_path => node['beaver']['config_path'],
       :config_file => node['beaver']['config_file'],
       :log_path => node['beaver']['log_path'],
@@ -147,6 +148,7 @@ else
     group node['beaver']['group']
     mode '0755'
     variables(
+      :startup_options => node['beaver']['startup_options'],
       :config_path => node['beaver']['config_path'],
       :config_file => node['beaver']['config_file'],
       :log_path => node['beaver']['log_path'],

@@ -28,6 +28,7 @@ default['beaver'] = {
   'version' => '31',
   'user' => 'root',
   'group' => 'root',
+  'startup_options' => '',
   'log_path' => '/var/log',
   'log_file' => 'beaver.log',
   'pid_file' => '/var/run/beaver.pid',

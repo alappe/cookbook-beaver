@@ -71,6 +71,8 @@ directory.
 |<tt>tags</tt>|Array|The Logstash tags to associate with the log data as an array of strings.|<tt>[]</tt>|
 |<tt>add\_field</tt>|Array|The Logstash field(s) to associate with the log data. An array of strings in the form ['fieldname1', 'fieldvalue1'].|<tt>[]</tt>|
 |<tt>exclude</tt>|String|Which log files to exclude. Useful if using a file glob in the `path` parameter. The value must be a valid Python regex string. |<tt></tt>|
+|<tt>multiline_regex_after</tt>|String|If a line matches this regular expression then it will be merged with the next line(s). The value must be a valid Python regex string.|<tt></tt>|
+|<tt>multiline_regex_before</tt>|String|If a line matches this regular expression then it will be merged with the previous line(s). The value must be a valid Python regex string.|<tt></tt>|
 
 
 #### Examples

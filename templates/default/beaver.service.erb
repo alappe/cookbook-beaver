@@ -1,0 +1,13 @@
+[Unit]
+Description=Beaver
+After=network.target
+
+[Service]
+Type=simple
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart=<%= @use_virtualenv ? (@virtualenv_path + '/bin/') : '/usr/bin/env PATH=/usr/local/bin:/usr/bin ' %>beaver -c <%= File.join(@config_path, @config_file) %> -l <%= File.join(@log_path, @log_file) %>
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
